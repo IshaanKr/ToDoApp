@@ -1,26 +1,33 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, Image, Button, TextInput } from 'react-native';
+import { View, Text, Image, Button, TextInput } from 'react-native';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setUsername } from '../store/action';
 
 export default function LoginScreen({ navigation }) {
 
-    const [username, onChangeUsername] = React.useState("");
+    const [username, onChangeUsername] = React.useState("")
+
+    const dispatch = useDispatch()
 
     return (
         <View style={{
             flex: 1,
+            paddingHorizontal: 40,
+            paddingVertical: 20,
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: 'white',
         }}>
 
             <View style={{
-                justifyContent: 'space-between',
-                width: 500,
-                height: 500,
+                width: '100%',
+                height: '100%',
             }}>
 
                 <Text style={{
-                    fontSize: 25,
+                    fontSize: 30,
                     textAlign: 'center',
                     color: 'black'
                 }}>Welcome to Microsoft To Do</Text>
@@ -28,8 +35,8 @@ export default function LoginScreen({ navigation }) {
                 <Image
                     source={require('./img/login-image.jpg')}
                     style={{
+                        height: 200,
                         borderColor: 'black',
-                        flex: 1,
                         width: '100%',
                         resizeMode: 'contain'
                     }} />
@@ -37,7 +44,7 @@ export default function LoginScreen({ navigation }) {
 
                 <TextInput
                     style={{
-                        backgroundColor: 'lightgrey',
+                        backgroundColor: 'whitesmoke',
                         paddingLeft: 15,
                         marginBottom: 10
                     }}
@@ -48,17 +55,20 @@ export default function LoginScreen({ navigation }) {
                 <Button
                     styles={{ padding: 10 }}
                     title="Sign in"
-                    onPress={() => navigation.navigate('OTP')} />
+                    onPress={() => { 
+                        dispatch(setUsername(username))
+                        navigation.navigate('OTP')
+                         }} />
 
                 <Text style={{
-                    margin: 20,
                     fontSize: 15,
-                    textAlign: 'center'
+                    paddingVertical: 10
                 }}>Sign in with a work, school, or Microsoft account.</Text>
 
                 <Text style={{
+                    flex: 1,
                     margin: 20, color: 'blue', fontSize: 15,
-                    textAlign: 'center'
+                    textAlign: 'center',
                 }}>Don't have a Microsoft account?</Text>
 
             </View>
